@@ -31,34 +31,34 @@ partial class Form1
     {
         components = new System.ComponentModel.Container();
         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-        btnGo = new System.Windows.Forms.Button();
-        labelSun = new System.Windows.Forms.Label();
-        numSun = new System.Windows.Forms.NumericUpDown();
-        checkBoxCool = new System.Windows.Forms.CheckBox();
-        checkAutoFillSun = new System.Windows.Forms.CheckBox();
+        btnGo = new Button();
+        labelSun = new Label();
+        numSun = new NumericUpDown();
+        checkBoxCool = new CheckBox();
+        checkAutoFillSun = new CheckBox();
         timerAutoFillSun = new System.Windows.Forms.Timer(components);
-        checkWeek = new System.Windows.Forms.CheckBox();
-        numSilverCoins = new System.Windows.Forms.NumericUpDown();
-        label2 = new System.Windows.Forms.Label();
-        btnChangeSilverCoins = new System.Windows.Forms.Button();
-        btnChangeGoldCoins = new System.Windows.Forms.Button();
-        label3 = new System.Windows.Forms.Label();
-        numGoldCoins = new System.Windows.Forms.NumericUpDown();
-        btnChangeDiamond = new System.Windows.Forms.Button();
-        label4 = new System.Windows.Forms.Label();
-        numDiamond = new System.Windows.Forms.NumericUpDown();
-        btnTree = new System.Windows.Forms.Button();
-        label5 = new System.Windows.Forms.Label();
-        numTree = new System.Windows.Forms.NumericUpDown();
-        label6 = new System.Windows.Forms.Label();
-        label7 = new System.Windows.Forms.Label();
-        pictureBox1 = new System.Windows.Forms.PictureBox();
-        checkHat = new System.Windows.Forms.CheckBox();
-        checkHandle = new System.Windows.Forms.CheckBox();
-        checkInvincibility = new System.Windows.Forms.CheckBox();
-        checkUnLockAllPlant = new System.Windows.Forms.CheckBox();
-        label1 = new System.Windows.Forms.Label();
-        comboBoxVer = new System.Windows.Forms.ComboBox();
+        checkWeek = new CheckBox();
+        numSilverCoins = new NumericUpDown();
+        label2 = new Label();
+        btnChangeSilverCoins = new Button();
+        btnChangeGoldCoins = new Button();
+        label3 = new Label();
+        numGoldCoins = new NumericUpDown();
+        btnChangeDiamond = new Button();
+        label4 = new Label();
+        numDiamond = new NumericUpDown();
+        btnTree = new Button();
+        label5 = new Label();
+        numTree = new NumericUpDown();
+        label6 = new Label();
+        label7 = new Label();
+        checkHat = new CheckBox();
+        checkHandle = new CheckBox();
+        checkInvincibility = new CheckBox();
+        checkUnLockAllPlant = new CheckBox();
+        label1 = new Label();
+        comboBoxVer = new ComboBox();
+        pictureBox1 = new PictureBox();
         ((System.ComponentModel.ISupportInitialize)numSun).BeginInit();
         ((System.ComponentModel.ISupportInitialize)numSilverCoins).BeginInit();
         ((System.ComponentModel.ISupportInitialize)numGoldCoins).BeginInit();
@@ -69,9 +69,9 @@ partial class Form1
         // 
         // btnGo
         // 
-        btnGo.Location = new System.Drawing.Point(348, 97);
+        btnGo.Location = new Point(348, 97);
         btnGo.Name = "btnGo";
-        btnGo.Size = new System.Drawing.Size(132, 41);
+        btnGo.Size = new Size(132, 41);
         btnGo.TabIndex = 0;
         btnGo.Text = "修改阳光";
         btnGo.UseVisualStyleBackColor = true;
@@ -79,26 +79,26 @@ partial class Form1
         // 
         // labelSun
         // 
-        labelSun.Location = new System.Drawing.Point(42, 105);
+        labelSun.Location = new Point(42, 105);
         labelSun.Name = "labelSun";
-        labelSun.Size = new System.Drawing.Size(68, 29);
+        labelSun.Size = new Size(68, 29);
         labelSun.TabIndex = 4;
         labelSun.Text = "阳光";
         // 
         // numSun
         // 
-        numSun.Location = new System.Drawing.Point(116, 103);
+        numSun.Location = new Point(116, 103);
         numSun.Maximum = new decimal(new int[] { 99999, 0, 0, 0 });
         numSun.Name = "numSun";
-        numSun.Size = new System.Drawing.Size(196, 30);
+        numSun.Size = new Size(196, 30);
         numSun.TabIndex = 5;
         numSun.Value = new decimal(new int[] { 99999, 0, 0, 0 });
         // 
         // checkBoxCool
         // 
-        checkBoxCool.Location = new System.Drawing.Point(116, 307);
+        checkBoxCool.Location = new Point(116, 307);
         checkBoxCool.Name = "checkBoxCool";
-        checkBoxCool.Size = new System.Drawing.Size(196, 40);
+        checkBoxCool.Size = new Size(196, 40);
         checkBoxCool.TabIndex = 6;
         checkBoxCool.Text = "种植无冷却时间";
         checkBoxCool.UseVisualStyleBackColor = true;
@@ -106,9 +106,9 @@ partial class Form1
         // 
         // checkAutoFillSun
         // 
-        checkAutoFillSun.Location = new System.Drawing.Point(501, 105);
+        checkAutoFillSun.Location = new Point(501, 105);
         checkAutoFillSun.Name = "checkAutoFillSun";
-        checkAutoFillSun.Size = new System.Drawing.Size(147, 32);
+        checkAutoFillSun.Size = new Size(147, 32);
         checkAutoFillSun.TabIndex = 7;
         checkAutoFillSun.Text = "自动补满";
         checkAutoFillSun.UseVisualStyleBackColor = true;
@@ -122,9 +122,9 @@ partial class Form1
         // 
         // checkWeek
         // 
-        checkWeek.Location = new System.Drawing.Point(116, 429);
+        checkWeek.Location = new Point(116, 429);
         checkWeek.Name = "checkWeek";
-        checkWeek.Size = new System.Drawing.Size(218, 33);
+        checkWeek.Size = new Size(218, 33);
         checkWeek.TabIndex = 8;
         checkWeek.Text = "僵尸削弱(一枪就死)";
         checkWeek.UseVisualStyleBackColor = true;
@@ -132,26 +132,26 @@ partial class Form1
         // 
         // numSilverCoins
         // 
-        numSilverCoins.Location = new System.Drawing.Point(116, 150);
+        numSilverCoins.Location = new Point(116, 150);
         numSilverCoins.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
         numSilverCoins.Name = "numSilverCoins";
-        numSilverCoins.Size = new System.Drawing.Size(196, 30);
+        numSilverCoins.Size = new Size(196, 30);
         numSilverCoins.TabIndex = 9;
         numSilverCoins.Value = new decimal(new int[] { 999999, 0, 0, 0 });
         // 
         // label2
         // 
-        label2.Location = new System.Drawing.Point(42, 152);
+        label2.Location = new Point(42, 152);
         label2.Name = "label2";
-        label2.Size = new System.Drawing.Size(68, 29);
+        label2.Size = new Size(68, 29);
         label2.TabIndex = 10;
         label2.Text = "银币";
         // 
         // btnChangeSilverCoins
         // 
-        btnChangeSilverCoins.Location = new System.Drawing.Point(348, 144);
+        btnChangeSilverCoins.Location = new Point(348, 144);
         btnChangeSilverCoins.Name = "btnChangeSilverCoins";
-        btnChangeSilverCoins.Size = new System.Drawing.Size(132, 41);
+        btnChangeSilverCoins.Size = new Size(132, 41);
         btnChangeSilverCoins.TabIndex = 11;
         btnChangeSilverCoins.Text = "修改银币";
         btnChangeSilverCoins.UseVisualStyleBackColor = true;
@@ -159,9 +159,9 @@ partial class Form1
         // 
         // btnChangeGoldCoins
         // 
-        btnChangeGoldCoins.Location = new System.Drawing.Point(348, 191);
+        btnChangeGoldCoins.Location = new Point(348, 191);
         btnChangeGoldCoins.Name = "btnChangeGoldCoins";
-        btnChangeGoldCoins.Size = new System.Drawing.Size(132, 41);
+        btnChangeGoldCoins.Size = new Size(132, 41);
         btnChangeGoldCoins.TabIndex = 14;
         btnChangeGoldCoins.Text = "修改金币";
         btnChangeGoldCoins.UseVisualStyleBackColor = true;
@@ -169,26 +169,26 @@ partial class Form1
         // 
         // label3
         // 
-        label3.Location = new System.Drawing.Point(42, 199);
+        label3.Location = new Point(42, 199);
         label3.Name = "label3";
-        label3.Size = new System.Drawing.Size(68, 29);
+        label3.Size = new Size(68, 29);
         label3.TabIndex = 13;
         label3.Text = "金币";
         // 
         // numGoldCoins
         // 
-        numGoldCoins.Location = new System.Drawing.Point(116, 197);
+        numGoldCoins.Location = new Point(116, 197);
         numGoldCoins.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
         numGoldCoins.Name = "numGoldCoins";
-        numGoldCoins.Size = new System.Drawing.Size(196, 30);
+        numGoldCoins.Size = new Size(196, 30);
         numGoldCoins.TabIndex = 12;
         numGoldCoins.Value = new decimal(new int[] { 999999, 0, 0, 0 });
         // 
         // btnChangeDiamond
         // 
-        btnChangeDiamond.Location = new System.Drawing.Point(348, 238);
+        btnChangeDiamond.Location = new Point(348, 238);
         btnChangeDiamond.Name = "btnChangeDiamond";
-        btnChangeDiamond.Size = new System.Drawing.Size(132, 41);
+        btnChangeDiamond.Size = new Size(132, 41);
         btnChangeDiamond.TabIndex = 17;
         btnChangeDiamond.Text = "修改钻石";
         btnChangeDiamond.UseVisualStyleBackColor = true;
@@ -196,26 +196,26 @@ partial class Form1
         // 
         // label4
         // 
-        label4.Location = new System.Drawing.Point(42, 246);
+        label4.Location = new Point(42, 246);
         label4.Name = "label4";
-        label4.Size = new System.Drawing.Size(68, 29);
+        label4.Size = new Size(68, 29);
         label4.TabIndex = 16;
         label4.Text = "钻石";
         // 
         // numDiamond
         // 
-        numDiamond.Location = new System.Drawing.Point(116, 244);
+        numDiamond.Location = new Point(116, 244);
         numDiamond.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
         numDiamond.Name = "numDiamond";
-        numDiamond.Size = new System.Drawing.Size(196, 30);
+        numDiamond.Size = new Size(196, 30);
         numDiamond.TabIndex = 15;
         numDiamond.Value = new decimal(new int[] { 999999, 0, 0, 0 });
         // 
         // btnTree
         // 
-        btnTree.Location = new System.Drawing.Point(348, 521);
+        btnTree.Location = new Point(348, 521);
         btnTree.Name = "btnTree";
-        btnTree.Size = new System.Drawing.Size(132, 41);
+        btnTree.Size = new Size(132, 41);
         btnTree.TabIndex = 18;
         btnTree.Text = "长高";
         btnTree.UseVisualStyleBackColor = true;
@@ -223,54 +223,42 @@ partial class Form1
         // 
         // label5
         // 
-        label5.Location = new System.Drawing.Point(42, 529);
+        label5.Location = new Point(42, 529);
         label5.Name = "label5";
-        label5.Size = new System.Drawing.Size(68, 29);
+        label5.Size = new Size(68, 29);
         label5.TabIndex = 20;
         label5.Text = "智慧树";
         // 
         // numTree
         // 
-        numTree.Location = new System.Drawing.Point(116, 527);
+        numTree.Location = new Point(116, 527);
         numTree.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
         numTree.Name = "numTree";
-        numTree.Size = new System.Drawing.Size(196, 30);
+        numTree.Size = new Size(196, 30);
         numTree.TabIndex = 19;
         numTree.Value = new decimal(new int[] { 1000, 0, 0, 0 });
         // 
         // label6
         // 
-        label6.Location = new System.Drawing.Point(42, 314);
+        label6.Location = new Point(42, 314);
         label6.Name = "label6";
-        label6.Size = new System.Drawing.Size(68, 29);
+        label6.Size = new Size(68, 29);
         label6.TabIndex = 21;
         label6.Text = "植物";
         // 
         // label7
         // 
-        label7.Location = new System.Drawing.Point(42, 433);
+        label7.Location = new Point(42, 433);
         label7.Name = "label7";
-        label7.Size = new System.Drawing.Size(68, 29);
+        label7.Size = new Size(68, 29);
         label7.TabIndex = 22;
         label7.Text = "僵尸";
         // 
-        // pictureBox1
-        // 
-        pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
-        pictureBox1.Image = ((System.Drawing.Image)resources.GetObject("pictureBox1.Image"));
-        pictureBox1.Location = new System.Drawing.Point(570, 521);
-        pictureBox1.Name = "pictureBox1";
-        pictureBox1.Size = new System.Drawing.Size(50, 50);
-        pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-        pictureBox1.TabIndex = 23;
-        pictureBox1.TabStop = false;
-        pictureBox1.Click += pictureBox1_Click;
-        // 
         // checkHat
         // 
-        checkHat.Location = new System.Drawing.Point(348, 425);
+        checkHat.Location = new Point(348, 425);
         checkHat.Name = "checkHat";
-        checkHat.Size = new System.Drawing.Size(218, 40);
+        checkHat.Size = new Size(218, 40);
         checkHat.TabIndex = 24;
         checkHat.Text = "帽子削弱(一枪就掉)";
         checkHat.UseVisualStyleBackColor = true;
@@ -278,9 +266,9 @@ partial class Form1
         // 
         // checkHandle
         // 
-        checkHandle.Location = new System.Drawing.Point(116, 468);
+        checkHandle.Location = new Point(116, 468);
         checkHandle.Name = "checkHandle";
-        checkHandle.Size = new System.Drawing.Size(218, 40);
+        checkHandle.Size = new Size(218, 40);
         checkHandle.TabIndex = 25;
         checkHandle.Text = "手持削弱(一枪就掉)";
         checkHandle.UseVisualStyleBackColor = true;
@@ -288,9 +276,9 @@ partial class Form1
         // 
         // checkInvincibility
         // 
-        checkInvincibility.Location = new System.Drawing.Point(348, 307);
+        checkInvincibility.Location = new Point(348, 307);
         checkInvincibility.Name = "checkInvincibility";
-        checkInvincibility.Size = new System.Drawing.Size(159, 40);
+        checkInvincibility.Size = new Size(159, 40);
         checkInvincibility.TabIndex = 26;
         checkInvincibility.Text = "植物无敌";
         checkInvincibility.UseVisualStyleBackColor = true;
@@ -298,9 +286,9 @@ partial class Form1
         // 
         // checkUnLockAllPlant
         // 
-        checkUnLockAllPlant.Location = new System.Drawing.Point(116, 353);
+        checkUnLockAllPlant.Location = new Point(116, 353);
         checkUnLockAllPlant.Name = "checkUnLockAllPlant";
-        checkUnLockAllPlant.Size = new System.Drawing.Size(177, 40);
+        checkUnLockAllPlant.Size = new Size(177, 40);
         checkUnLockAllPlant.TabIndex = 27;
         checkUnLockAllPlant.Text = "解锁所有植物";
         checkUnLockAllPlant.UseVisualStyleBackColor = true;
@@ -308,28 +296,40 @@ partial class Form1
         // 
         // label1
         // 
-        label1.Location = new System.Drawing.Point(42, 38);
+        label1.Location = new Point(42, 38);
         label1.Name = "label1";
-        label1.Size = new System.Drawing.Size(68, 29);
+        label1.Size = new Size(68, 29);
         label1.TabIndex = 28;
         label1.Text = "版本";
         // 
         // comboBoxVer
         // 
-        comboBoxVer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+        comboBoxVer.DropDownStyle = ComboBoxStyle.DropDownList;
         comboBoxVer.FormattingEnabled = true;
         comboBoxVer.Items.AddRange(new object[] { "v3.9.9" });
-        comboBoxVer.Location = new System.Drawing.Point(113, 35);
+        comboBoxVer.Location = new Point(113, 35);
         comboBoxVer.Name = "comboBoxVer";
-        comboBoxVer.Size = new System.Drawing.Size(199, 32);
+        comboBoxVer.Size = new Size(199, 32);
         comboBoxVer.TabIndex = 29;
         comboBoxVer.SelectedIndexChanged += comboBoxVer_SelectedIndexChanged;
         // 
+        // pictureBox1
+        // 
+        pictureBox1.Cursor = Cursors.Hand;
+        pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+        pictureBox1.Location = new Point(570, 521);
+        pictureBox1.Name = "pictureBox1";
+        pictureBox1.Size = new Size(50, 50);
+        pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+        pictureBox1.TabIndex = 23;
+        pictureBox1.TabStop = false;
+        pictureBox1.Click += pictureBox1_Click;
+        // 
         // Form1
         // 
-        AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
-        AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-        ClientSize = new System.Drawing.Size(644, 591);
+        AutoScaleDimensions = new SizeF(11F, 24F);
+        AutoScaleMode = AutoScaleMode.Font;
+        ClientSize = new Size(644, 591);
         Controls.Add(comboBoxVer);
         Controls.Add(label1);
         Controls.Add(checkUnLockAllPlant);
@@ -357,11 +357,12 @@ partial class Form1
         Controls.Add(numSun);
         Controls.Add(labelSun);
         Controls.Add(btnGo);
-        FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-        Icon = ((System.Drawing.Icon)resources.GetObject("$this.Icon"));
+        FormBorderStyle = FormBorderStyle.FixedSingle;
+        Icon = (Icon)resources.GetObject("$this.Icon");
         MaximizeBox = false;
         MinimizeBox = false;
-        StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+        Name = "Form1";
+        StartPosition = FormStartPosition.CenterScreen;
         Text = "游戏修改器";
         Load += Form1_Load;
         ((System.ComponentModel.ISupportInitialize)numSun).EndInit();
@@ -373,6 +374,8 @@ partial class Form1
         ResumeLayout(false);
     }
 
+    private System.Windows.Forms.PictureBox pictureBox1;
+
     private System.Windows.Forms.ComboBox comboBoxVer;
 
     private System.Windows.Forms.CheckBox checkUnLockAllPlant;
@@ -382,8 +385,6 @@ partial class Form1
     private System.Windows.Forms.CheckBox checkHandle;
 
     private System.Windows.Forms.CheckBox checkHat;
-
-    private System.Windows.Forms.PictureBox pictureBox1;
 
     private System.Windows.Forms.Button btnTree;
     private System.Windows.Forms.Label label5;

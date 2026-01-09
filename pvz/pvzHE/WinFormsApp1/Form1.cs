@@ -1,4 +1,5 @@
 using System.Buffers.Binary;
+using System.ComponentModel;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using IData;
@@ -7,6 +8,7 @@ using Timer = System.Threading.Timer;
 namespace WinFormsApp1;
 
 using System.Diagnostics;
+
 
 public partial class Form1 : Form
 {
@@ -28,8 +30,18 @@ public partial class Form1 : Form
     public Form1()
     {
         InitializeComponent();
+        LoadVersionList();
     }
-
+    
+    private void LoadVersionList()
+    {
+        VersionList[] list = Enum.GetValues<VersionList>();
+        comboBoxVer.Items.Clear();
+        foreach (VersionList value in list)
+        {
+            comboBoxVer.Items.Add(value.GetDescription());
+        }
+    }
     private void Form1_Load(object sender, EventArgs e)
     {
         this.Text = $"{Title}修改器";
@@ -78,12 +90,25 @@ public partial class Form1 : Form
 
     private IPvzData LoadData(VersionList version)
     {
-        Assembly assembly = Assembly.LoadFrom("D:\\code\\github\\gametools\\pvz\\pvzHE\\Data\\bin\\Debug\\net10.0\\Data.dll");
+        // todo: 修改DLL路径
+        string exePath = Process.GetCurrentProcess().MainModule.FileName;
+        string exeDir = Path.GetDirectoryName(exePath);
+        string dllPath = Path.Combine(exeDir, "Data.dll");
+        Assembly assembly = Assembly.LoadFrom(dllPath);
+        // Assembly assembly = Assembly.LoadFrom("D:\\code\\github\\gametools\\pvz\\pvzHE\\WinFormsApp1\\bin\\Debug\\net10.0-windows\\Data.dll");
+        if (assembly == null)
+        {
+            throw new Exception("加载数据模块错误");
+        }
         Type type = assembly.GetType("Data.PvzDataLoader");
+        if (type == null)
+        {
+            throw new Exception("加载数据模块类型错误");
+        }
         IPvzDataLoader instance = Activator.CreateInstance(type) as IPvzDataLoader;
         if (instance == null)
         {
-            throw new Exception("加载数据模块错误");
+            throw new Exception("创建数据模块错误");
         }
         IPvzData data = instance.GetPvzData(version);
         return data;
@@ -160,7 +185,8 @@ public partial class Form1 : Form
             MessageBox.Show("打开游戏进程错误！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return;
         }
-        IntPtr coolAddress = this.BaseAddress + 0x00087296;
+        // IntPtr coolAddress = this.BaseAddress + 0x00087296;
+        IntPtr coolAddress = new IntPtr(this.BaseAddress + PvzData.CoolDown);
         // byte [] writeData = checkWeek.Checked ? new byte[] { 0x90, 0x90} : new byte[] { 0xxx,0xxx };
         if (this.checkBoxCool.Checked)
         {
@@ -218,7 +244,8 @@ public partial class Form1 : Form
         {
             return;
         }
-        IntPtr address = this.BaseAddress + 0x0013178A;
+        // IntPtr address = this.BaseAddress + 0x0013178A;
+        IntPtr address = new IntPtr(this.BaseAddress + PvzData.ZombiesWeek);
         OpenGameProcessGame();
         byte[] buffer = new byte[2];
         int read = 0;
@@ -289,7 +316,8 @@ public partial class Form1 : Form
             MessageBox.Show("打开游戏进程错误！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return;
         }
-        IntPtr address1 = this.BaseAddress + 0x002A9EC0;
+        // IntPtr address1 = this.BaseAddress + 0x002A9EC0;
+        IntPtr address1 = new IntPtr(this.BaseAddress + PvzData.SilverCoinsOffset1);
         byte [] value1 = new byte[8];
         int read = 0;
         if (!ReadMemery(address1, ref value1, value1.Length,ref read))
@@ -298,7 +326,8 @@ public partial class Form1 : Form
             goto end;
         }
 
-        IntPtr address2 = new IntPtr(BitConverter.ToInt64(value1) + 0x0000082C);
+        // IntPtr address2 = new IntPtr(BitConverter.ToInt64(value1) + 0x0000082C);
+        IntPtr address2 = new IntPtr(BitConverter.ToInt64(value1) + PvzData.SilverCoinsOffset2);
         byte [] value2 = new byte[8];
         if (!ReadMemery(address2, ref value2, value2.Length,ref read))
         {
@@ -306,8 +335,8 @@ public partial class Form1 : Form
             goto end;
         }
         // 这里必须用ToInt32，不能用ToInt64，还不知道原因
-        IntPtr address = new IntPtr(BitConverter.ToInt32(value2) + 0x00000204 + (0x00000004 * 1));
-        
+        //IntPtr address = new IntPtr(BitConverter.ToInt32(value2) + 0x00000204 + (0x00000004 * 1));
+        IntPtr address = new IntPtr(BitConverter.ToInt32(value2) + PvzData.SilverCoinsOffset3);
         byte[] coinsData = new byte[4];
         if (!ReadMemery(address, ref coinsData, coinsData.Length,ref read))
         {
@@ -334,7 +363,8 @@ public partial class Form1 : Form
             return;
         }
         OpenGameProcessGame();
-        IntPtr address1 = new IntPtr(this.BaseAddress + 0x002A9EC0);
+        // IntPtr address1 = new IntPtr(this.BaseAddress + 0x002A9EC0);
+        IntPtr address1 = new IntPtr(this.BaseAddress + PvzData.GoldCoinsOffset1);
         byte [] value1 = new byte[8];
         int read = 0;
         if (!ReadMemery(address1, ref value1, value1.Length, ref read))
@@ -343,7 +373,8 @@ public partial class Form1 : Form
             goto end;
         }
 
-        IntPtr address2 = new IntPtr(BitConverter.ToInt32(value1) + 0x00082C);
+        // IntPtr address2 = new IntPtr(BitConverter.ToInt32(value1) + 0x00082C);
+        IntPtr address2 = new IntPtr(BitConverter.ToInt32(value1) + PvzData.GoldCoinsOffset2);
         byte [] value2 = new byte[8];
         if (!ReadMemery(address2, ref value2, value2.Length, ref read))
         {
@@ -351,8 +382,8 @@ public partial class Form1 : Form
             goto end;
         }
         
-        IntPtr address = new IntPtr(BitConverter.ToInt32(value2) + 0x204 + (0x4 * 2));
-        
+        // IntPtr address = new IntPtr(BitConverter.ToInt32(value2) + 0x204 + (0x4 * 2));
+        IntPtr address = new IntPtr(BitConverter.ToInt32(value2) + PvzData.GoldCoinsOffset3);
         byte[] coinsData = new byte[4];
         if (!ReadMemery(address, ref coinsData, coinsData.Length, ref read))
         {
@@ -379,7 +410,8 @@ public partial class Form1 : Form
             return;
         }
         OpenGameProcessGame();
-        IntPtr address1 = this.BaseAddress + 0x002A9EC0;
+        // IntPtr address1 = this.BaseAddress + 0x002A9EC0;
+        IntPtr address1 = new IntPtr(this.BaseAddress + PvzData.DiamondCoinsOffset1);
         byte [] value1 = new byte[4];
         int read = 0;
         if (!ReadMemery(address1, ref value1, value1.Length, ref read))
@@ -388,7 +420,8 @@ public partial class Form1 : Form
             goto end;
         }
 
-        IntPtr address2 = BitConverter.ToInt32(value1, 0) + 0x00082C;
+        // IntPtr address2 = BitConverter.ToInt32(value1) + 0x00082C;
+        IntPtr address2 = new IntPtr(BitConverter.ToInt32(value1) + PvzData.DiamondCoinsOffset2);
         byte [] value2 = new byte[4];
         if (!ReadMemery(address2, ref value2, value2.Length, ref read))
         {
@@ -396,8 +429,8 @@ public partial class Form1 : Form
             goto end;
         }
         
-        IntPtr address = BitConverter.ToInt32(value2, 0) + 0x204 + (0x4 * 3);
-        
+        // IntPtr address = BitConverter.ToInt32(value2) + 0x204 + (0x4 * 3);
+        IntPtr address = new IntPtr(BitConverter.ToInt32(value2) + PvzData.DiamondCoinsOffset3);
         byte[] coinsData = new byte[4];
         if (!ReadMemery(address, ref coinsData, coinsData.Length, ref read))
         {
@@ -431,7 +464,8 @@ public partial class Form1 : Form
             return;
         }
         OpenGameProcessGame();
-        IntPtr address1 = this.BaseAddress + 0x002A9EC0;
+        // IntPtr address1 = this.BaseAddress + 0x002A9EC0;
+        IntPtr address1 = new IntPtr(this.BaseAddress + PvzData.TreeOffset1);
         byte [] value1 = new byte[4];
         int read = 0;
         if (!ReadMemery(address1, ref value1, value1.Length, ref read))
@@ -440,7 +474,8 @@ public partial class Form1 : Form
             goto end;
         }
 
-        IntPtr address2 = BitConverter.ToInt32(value1, 0) + 0x00082C;
+        // IntPtr address2 = BitConverter.ToInt32(value1) + 0x00082C;
+        IntPtr address2 = new IntPtr(BitConverter.ToInt32(value1) + PvzData.TreeOffset2);
         byte [] value2 = new byte[4];
         if (!ReadMemery(address2, ref value2, value2.Length, ref read))
         {
@@ -448,8 +483,8 @@ public partial class Form1 : Form
             goto end;
         }
         
-        IntPtr address = BitConverter.ToInt32(value2, 0) + 0x30 + (0x4 * 0x31);
-        
+        // IntPtr address = BitConverter.ToInt32(value2) + 0x30 + (0x4 * 0x31);
+        IntPtr address = new IntPtr(BitConverter.ToInt32(value2) + PvzData.TreeOffset3);
         byte[] treeData = new byte[4];
         if (!ReadMemery(address, ref treeData, treeData.Length, ref read))
         {
@@ -458,7 +493,7 @@ public partial class Form1 : Form
         }
 
         
-        int height = (int)numTree.Value + BitConverter.ToInt32(treeData, 0);
+        int height = (int)numTree.Value + BitConverter.ToInt32(treeData);
         byte[] heightByteData = BitConverter.GetBytes(height);
         int wrote = 0;
         if (!WriteMemery(address, heightByteData, out wrote))
@@ -489,7 +524,8 @@ public partial class Form1 : Form
         {
             return;
         }
-        IntPtr address = this.BaseAddress + 0x00131066;
+        // IntPtr address = this.BaseAddress + 0x00131066;
+        IntPtr address = new IntPtr(this.BaseAddress + PvzData.HatOffset);
         OpenGameProcessGame();
         byte[] buffer = new byte[2];
         int read = 0;
@@ -498,7 +534,8 @@ public partial class Form1 : Form
             MessageBox.Show("读取帽子地址失败！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             goto end;
         }
-        byte [] writeData = checkHat.Checked ? new byte[] { 0x90, 0x90} : new byte[] { 0x75,0x11 };
+        // byte [] writeData = checkHat.Checked ? new byte[] { 0x90, 0x90} : new byte[] { 0x75,0x11 };
+        byte [] writeData = checkHat.Checked ? new byte[] { 0x90, 0x90} : PvzData.HatShellCode;
         int wrote;
         bool success = WriteMemery(address, writeData, out wrote);
         if (!success || wrote == 0)
@@ -516,7 +553,8 @@ public partial class Form1 : Form
         {
             return;
         }
-        IntPtr address = this.BaseAddress + 0x00130CB1;
+        // IntPtr address = this.BaseAddress + 0x00130CB1;
+        IntPtr address = new IntPtr(this.BaseAddress + PvzData.HandleOffset);
         OpenGameProcessGame();
         byte[] buffer = new byte[2];
         int read = 0;
@@ -525,7 +563,8 @@ public partial class Form1 : Form
             MessageBox.Show("读取手持地址失败！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             goto end;
         }
-        byte [] writeData = checkHandle.Checked ? new byte[] { 0x90, 0x90} : new byte[] { 0x75,0x17 };
+        // byte [] writeData = checkHandle.Checked ? new byte[] { 0x90, 0x90} : new byte[] { 0x75,0x17 };
+        byte [] writeData = checkHandle.Checked ? new byte[] { 0x90, 0x90} : PvzData.HandleShellCode;
         int wrote;
         bool success = WriteMemery(address, writeData, out wrote);
         if (!success || wrote == 0)
@@ -543,7 +582,8 @@ public partial class Form1 : Form
         {
             return;
         }
-        IntPtr address = this.BaseAddress + 0x004101B1;
+        // IntPtr address = this.BaseAddress + 0x004101B1;
+        IntPtr address = new IntPtr(this.BaseAddress + PvzData.InvincibilityOffset);
         OpenGameProcessGame();
         byte[] buffer = new byte[4];
         int read = 0;
@@ -553,7 +593,8 @@ public partial class Form1 : Form
             goto end;
         }
         // 植物无敌原理：每当僵尸攻击植物时，植物的都会被攻击1次，现在把攻击次数改为0，植物就无敌了
-        byte [] writeData = checkInvincibility.Checked ? new byte[] { 0x83, 0x6D, 0x40, 0x00 } : new byte[] {  0x83, 0x6D, 0x40, 0x01 };
+        // byte [] writeData = checkInvincibility.Checked ? new byte[] { 0x83, 0x6D, 0x40, 0x00 } : new byte[] {  0x83, 0x6D, 0x40, 0x01 };
+        byte [] writeData = checkInvincibility.Checked ? PvzData.InvincibilityShellCode : PvzData.DeInvincibilityShellCode;
         int wrote;
         bool success = WriteMemery(address, writeData, out wrote);
         if (!success || wrote == 0)
@@ -572,8 +613,8 @@ public partial class Form1 : Form
             return;
         }
         OpenGameProcessGame();
-        long TARGET_HOOK_ADDRESS = this.BaseAddress + 0x00053B20;
-
+        // long TARGET_HOOK_ADDRESS = this.BaseAddress + 0x00053B20;
+        long TARGET_HOOK_ADDRESS = this.BaseAddress + PvzData.AllCardUnlockOffset;
         if (checkUnLockAllPlant.Checked)
         {
             UnlockPlantAddress = WinApi.VirtualAllocEx(
@@ -591,7 +632,7 @@ public partial class Form1 : Form
 
             // 步骤3：构造shellcode（MOV AL,1 + RET）并写入分配的内存
             // MOV AL,1 → 0xB0 0x01；RET → 0xC3
-            byte[] shellcode = new byte[] { 0xB0, 0x01, 0xC3 };
+            // byte[] shellcode = new byte[] { 0xB0, 0x01, 0xC3 };
             // 汇编指令
             // PUSH EAX       ; 保存EAX寄存器（包含AL）到栈中
             // MOV AL, 1      ; 修改AL为1
@@ -599,6 +640,7 @@ public partial class Form1 : Form
             // RET            ; 返回
             // 0x50 = PUSH EAX；0x58 = POP EAX
             //byte[] safe_shellcode = new byte[] { 0x50, 0xB0, 0x01, 0x58, 0xC3 };
+            byte[] shellcode = PvzData.AllCardUnlockShellCode;
             int written = 0;
             bool success = WinApi.WriteProcessMemory(
                 GameProcessId,
@@ -630,10 +672,10 @@ public partial class Form1 : Form
                 GameProcessId,
                 (IntPtr)TARGET_HOOK_ADDRESS, 
                 jmpInstruction,
-                5, // 写入5字节（E9 + 4字节偏移）
+                jmpInstruction.Length, // 写入5字节（E9 + 4字节偏移）
                 ref written
             );
-            if (!success || written != 5)
+            if (!success || written != jmpInstruction.Length)
             {
                 MessageBox.Show("写入shellcode失败！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 goto end;
@@ -658,16 +700,17 @@ public partial class Form1 : Form
                 goto end;
             }
             // 恢复原跳转代码: JMP 0x004DC4DB
-            byte[] restoreJmp = new byte[] { 0xE9, 0xDB, 0xC4, 0x4D, 0x00 };
+            // byte[] restoreJmp = new byte[] { 0xE9, 0xDB, 0xC4, 0x4D, 0x00 };
+            byte[] restoreJmp = PvzData.AllCardLockShellCode;
             int written = 0;
             success = WinApi.WriteProcessMemory(
                 GameProcessId,
                 (IntPtr)TARGET_HOOK_ADDRESS,
                 restoreJmp,
-                5, // 写入5字节
+                restoreJmp.Length, // 写入5字节
                 ref written
             );
-            if (!success || written != 5)
+            if (!success || written != restoreJmp.Length)
             {
                 MessageBox.Show("恢复代码失败！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 goto end;
@@ -677,6 +720,14 @@ public partial class Form1 : Form
         end:
         CloseGameProcess();
     }
+}
 
-    
+public static class EnumExtensions
+{
+    public static string GetDescription(this Enum enumValue)
+    {
+        FieldInfo field = enumValue.GetType().GetField(enumValue.ToString());
+        DescriptionAttribute? attr = field?.GetCustomAttribute<DescriptionAttribute>();
+        return attr?.Description ?? enumValue.ToString();
+    }
 }
