@@ -8,6 +8,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <AssemblyName>植物大战僵尸杂交版修改器</AssemblyName>
         <ApplicationIcon>..\images\icon.ico</ApplicationIcon>
+        <ApplicationManifest>app.manifest</ApplicationManifest>
     </PropertyGroup>
 
     <ItemGroup>
@@ -17,11 +18,13 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="favicon 32.ico" />
-      <None Remove="favicon.ico" />
       <None Include="..\images\icon.ico">
         <Link>icon.ico</Link>
       </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\IData\IData.csproj" />
     </ItemGroup>
 
 </Project>

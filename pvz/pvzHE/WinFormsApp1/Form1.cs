@@ -1,5 +1,7 @@
 using System.Buffers.Binary;
+using System.Reflection;
 using System.Runtime.InteropServices;
+using IData;
 using Timer = System.Threading.Timer;
 
 namespace WinFormsApp1;
@@ -8,6 +10,10 @@ using System.Diagnostics;
 
 public partial class Form1 : Form
 {
+    private const string Title = "植物大战僵尸杂交版";
+    // private const string Version = "v3.9.9";
+    
+    private string Version { get; set; }
     private int GameId { get; set; }
     private IntPtr GameProcessId { get; set; }
 
@@ -17,6 +23,7 @@ public partial class Form1 : Form
 
     private IntPtr UnlockPlantAddress { get; set; }
     
+    private IPvzData PvzData { get; set; }
 
     public Form1()
     {
@@ -25,15 +32,19 @@ public partial class Form1 : Form
 
     private void Form1_Load(object sender, EventArgs e)
     {
-        this.txtTitle.Text = "植物大战僵尸杂交版v3.9.9";
+        this.Text = $"{Title}修改器";
+        if (comboBoxVer.Items.Count > 0)
+        {
+            comboBoxVer.SelectedIndex = 0;
+            Version = comboBoxVer.SelectedItem.ToString();
+        }
     }
     
     private bool ReadGameInfo()
     {
-        string windowTitle = txtTitle.Text.Trim();
+        string windowTitle = $"{Title}{Version}";
         if (string.IsNullOrEmpty(windowTitle))
         {
-            txtTitle.Focus();
             MessageBox.Show("请输入游戏窗口标题", "错误", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             return false;
         }
@@ -47,7 +58,10 @@ public partial class Form1 : Form
             if (process.MainWindowTitle.Trim() == windowTitle.Trim())
             {
                 GameId = process.Id; // 保存游戏进程ID
-                BaseAddress = process.MainModule.BaseAddress; // 保存游戏进程基地址
+                if (process.MainModule != null)
+                {
+                    BaseAddress = process.MainModule.BaseAddress; // 保存游戏进程基地址
+                }
                 break;
             }
         }
@@ -62,6 +76,25 @@ public partial class Form1 : Form
         return true;
     }
 
+    private IPvzData LoadData(VersionList version)
+    {
+        Assembly assembly = Assembly.LoadFrom("D:\\code\\github\\gametools\\pvz\\pvzHE\\Data\\bin\\Debug\\net10.0\\Data.dll");
+        Type type = assembly.GetType("Data.PvzDataLoader");
+        IPvzDataLoader instance = Activator.CreateInstance(type) as IPvzDataLoader;
+        if (instance == null)
+        {
+            throw new Exception("加载数据模块错误");
+        }
+        IPvzData data = instance.GetPvzData(version);
+        return data;
+    }
+    private void comboBoxVer_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        string v = comboBoxVer.SelectedItem.ToString();
+        Enum.TryParse<VersionList>(v, out VersionList version);
+        IPvzData data = LoadData(version);
+        this.PvzData = data;
+    }
     private void btnGo_Click(object sender, EventArgs e)
     {
         if (!ReadGameInfo())
@@ -73,7 +106,9 @@ public partial class Form1 : Form
             MessageBox.Show("打开游戏进程错误！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return;
         }
-        IntPtr address1 = this.BaseAddress + 0x002A9EC0;
+        
+        //IntPtr address1 = this.BaseAddress + 0x002A9EC0;
+        IntPtr address1 = new IntPtr(this.BaseAddress + this.PvzData.SunAddressOffset1);
         int dataSize = Marshal.SizeOf<IntPtr>();//return Marshal.PtrToStructure<T>(buffer);
         byte [] value1 = new byte[dataSize];
         int read = 0;
@@ -83,14 +118,16 @@ public partial class Form1 : Form
             goto end;
         }
         
-        IntPtr address2 = new IntPtr(BitConverter.ToInt64(value1)+ 0x00000768);
+        //IntPtr address2 = new IntPtr(BitConverter.ToInt64(value1)+ 0x00000768);
+        IntPtr address2 = new IntPtr(BitConverter.ToInt64(value1) + this.PvzData.SunAddressOffset2);
         byte [] value2 = new byte[dataSize];
         if (!ReadMemery(address2, ref value2, dataSize, ref read))
         {
             MessageBox.Show("读取阳光数据错误2！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             goto end;
         }
-        IntPtr address = new IntPtr(BitConverter.ToInt64(value2) + 0x00005560);
+        //IntPtr address = new IntPtr(BitConverter.ToInt64(value2) + 0x00005560);
+        IntPtr address = new IntPtr(BitConverter.ToInt64(value2) + this.PvzData.SunAddressOffset3);
         dataSize = Marshal.SizeOf<Int32>();
         byte[] sunData = new byte[dataSize];
         if (!ReadMemery(address, ref sunData, dataSize, ref read))
@@ -225,8 +262,14 @@ public partial class Form1 : Form
     
     private bool OpenGameProcessGame()
     {
-        GameProcessId = WinApi.OpenProcess(WinApi.PROCESS_ALL_ACCESS, false, GameId);
-        return GameProcessId == IntPtr.Zero;
+        this.GameProcessId = WinApi.OpenProcess(WinApi.PROCESS_ALL_ACCESS, false, GameId);
+        // return this.GameProcessId == IntPtr.Zero;
+        if (this.GameProcessId != IntPtr.Zero)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     private void CloseGameProcess()
@@ -634,4 +677,6 @@ public partial class Form1 : Form
         end:
         CloseGameProcess();
     }
+
+    
 }

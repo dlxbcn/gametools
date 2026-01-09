@@ -32,20 +32,20 @@ partial class About
     private void InitializeComponent()
     {
         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(About));
-        label1 = new System.Windows.Forms.Label();
+        labelName = new System.Windows.Forms.Label();
         pictureBox1 = new System.Windows.Forms.PictureBox();
-        label2 = new System.Windows.Forms.Label();
+        labelVer = new System.Windows.Forms.Label();
         ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
         SuspendLayout();
         // 
-        // label1
+        // labelName
         // 
-        label1.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)134));
-        label1.Location = new System.Drawing.Point(34, 20);
-        label1.Name = "label1";
-        label1.Size = new System.Drawing.Size(289, 34);
-        label1.TabIndex = 0;
-        label1.Text = "植物大战僵尸杂交版修改器";
+        labelName.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)134));
+        labelName.Location = new System.Drawing.Point(34, 20);
+        labelName.Name = "labelName";
+        labelName.Size = new System.Drawing.Size(385, 34);
+        labelName.TabIndex = 0;
+        labelName.Text = "植物大战僵尸杂交版修改器";
         // 
         // pictureBox1
         // 
@@ -57,23 +57,23 @@ partial class About
         pictureBox1.TabIndex = 3;
         pictureBox1.TabStop = false;
         // 
-        // label2
+        // labelVer
         // 
-        label2.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)134));
-        label2.Location = new System.Drawing.Point(34, 58);
-        label2.Name = "label2";
-        label2.Size = new System.Drawing.Size(289, 34);
-        label2.TabIndex = 4;
-        label2.Text = "讨论组";
+        labelVer.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)134));
+        labelVer.Location = new System.Drawing.Point(34, 58);
+        labelVer.Name = "labelVer";
+        labelVer.Size = new System.Drawing.Size(289, 34);
+        labelVer.TabIndex = 4;
+        labelVer.Text = "讨论组";
         // 
         // About
         // 
         AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
         AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         ClientSize = new System.Drawing.Size(463, 632);
-        Controls.Add(label2);
+        Controls.Add(labelVer);
         Controls.Add(pictureBox1);
-        Controls.Add(label1);
+        Controls.Add(labelName);
         FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
         MaximizeBox = false;
         MinimizeBox = false;
@@ -85,8 +85,8 @@ partial class About
 
     private System.Windows.Forms.PictureBox pictureBox1;
 
-    private System.Windows.Forms.Label label1;
-    private System.Windows.Forms.Label label2;
+    private System.Windows.Forms.Label labelName;
+    private System.Windows.Forms.Label labelVer;
 
     #endregion
 }

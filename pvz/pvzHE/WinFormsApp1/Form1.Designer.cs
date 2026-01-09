@@ -32,8 +32,6 @@ partial class Form1
         components = new System.ComponentModel.Container();
         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
         btnGo = new System.Windows.Forms.Button();
-        txtTitle = new System.Windows.Forms.TextBox();
-        label1 = new System.Windows.Forms.Label();
         labelSun = new System.Windows.Forms.Label();
         numSun = new System.Windows.Forms.NumericUpDown();
         checkBoxCool = new System.Windows.Forms.CheckBox();
@@ -59,6 +57,8 @@ partial class Form1
         checkHandle = new System.Windows.Forms.CheckBox();
         checkInvincibility = new System.Windows.Forms.CheckBox();
         checkUnLockAllPlant = new System.Windows.Forms.CheckBox();
+        label1 = new System.Windows.Forms.Label();
+        comboBoxVer = new System.Windows.Forms.ComboBox();
         ((System.ComponentModel.ISupportInitialize)numSun).BeginInit();
         ((System.ComponentModel.ISupportInitialize)numSilverCoins).BeginInit();
         ((System.ComponentModel.ISupportInitialize)numGoldCoins).BeginInit();
@@ -76,23 +76,6 @@ partial class Form1
         btnGo.Text = "修改阳光";
         btnGo.UseVisualStyleBackColor = true;
         btnGo.Click += btnGo_Click;
-        // 
-        // txtTitle
-        // 
-        txtTitle.Location = new System.Drawing.Point(168, 41);
-        txtTitle.Name = "txtTitle";
-        txtTitle.ReadOnly = true;
-        txtTitle.Size = new System.Drawing.Size(441, 30);
-        txtTitle.TabIndex = 1;
-        txtTitle.Text = "植物大战僵尸杂交版";
-        // 
-        // label1
-        // 
-        label1.Location = new System.Drawing.Point(42, 41);
-        label1.Name = "label1";
-        label1.Size = new System.Drawing.Size(120, 30);
-        label1.TabIndex = 2;
-        label1.Text = "游戏窗口标题";
         // 
         // labelSun
         // 
@@ -323,11 +306,32 @@ partial class Form1
         checkUnLockAllPlant.UseVisualStyleBackColor = true;
         checkUnLockAllPlant.CheckedChanged += checkUnLock_CheckedChanged;
         // 
+        // label1
+        // 
+        label1.Location = new System.Drawing.Point(42, 38);
+        label1.Name = "label1";
+        label1.Size = new System.Drawing.Size(68, 29);
+        label1.TabIndex = 28;
+        label1.Text = "版本";
+        // 
+        // comboBoxVer
+        // 
+        comboBoxVer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+        comboBoxVer.FormattingEnabled = true;
+        comboBoxVer.Items.AddRange(new object[] { "v3.9.9" });
+        comboBoxVer.Location = new System.Drawing.Point(113, 35);
+        comboBoxVer.Name = "comboBoxVer";
+        comboBoxVer.Size = new System.Drawing.Size(199, 32);
+        comboBoxVer.TabIndex = 29;
+        comboBoxVer.SelectedIndexChanged += comboBoxVer_SelectedIndexChanged;
+        // 
         // Form1
         // 
         AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
         AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         ClientSize = new System.Drawing.Size(644, 591);
+        Controls.Add(comboBoxVer);
+        Controls.Add(label1);
         Controls.Add(checkUnLockAllPlant);
         Controls.Add(checkInvincibility);
         Controls.Add(checkHandle);
@@ -352,8 +356,6 @@ partial class Form1
         Controls.Add(checkBoxCool);
         Controls.Add(numSun);
         Controls.Add(labelSun);
-        Controls.Add(label1);
-        Controls.Add(txtTitle);
         Controls.Add(btnGo);
         FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
         Icon = ((System.Drawing.Icon)resources.GetObject("$this.Icon"));
@@ -369,8 +371,9 @@ partial class Form1
         ((System.ComponentModel.ISupportInitialize)numTree).EndInit();
         ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
         ResumeLayout(false);
-        PerformLayout();
     }
+
+    private System.Windows.Forms.ComboBox comboBoxVer;
 
     private System.Windows.Forms.CheckBox checkUnLockAllPlant;
 
@@ -414,7 +417,6 @@ partial class Form1
     
     private System.Windows.Forms.Label labelSun;
 
-    private System.Windows.Forms.TextBox txtTitle;
     private System.Windows.Forms.Label label1;
 
     private System.Windows.Forms.Button btnGo;
