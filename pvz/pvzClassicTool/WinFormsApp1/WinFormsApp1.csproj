@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net10.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <UseWindowsForms>true</UseWindowsForms>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <AssemblyName>植物大战僵尸经典版修改器</AssemblyName>
+        <ApplicationIcon>icon2.ico</ApplicationIcon>
+        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+        <ApplicationManifest>app.manifest</ApplicationManifest>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Compile Update="About.cs">
+        <SubType>Form</SubType>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="favicon 32.ico" />
+      <None Remove="favicon.ico" />
+      <Content Include="icon2.ico" />
+      <None Include="..\images\icon.ico">
+        <Link>icon.ico</Link>
+      </None>
+    </ItemGroup>
+
+</Project>
