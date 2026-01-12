@@ -67,7 +67,8 @@ public partial class Form1 : Form
         foreach (Process process in processes)
         {
             // 比较标题
-            if (process.MainWindowTitle.Trim() == windowTitle.Trim())
+            //if (process.MainWindowTitle.Trim() == windowTitle.Trim())
+            if (process.MainWindowTitle.Trim().StartsWith(Title+"v3"))
             {
                 GameId = process.Id; // 保存游戏进程ID
                 if (process.MainModule != null)
